@@ -20,13 +20,12 @@ TARGET_DOMAIN=ansible.aws.kornadian.com
 # ================================================= #
 # Alex's Code Start
 
+# lookup the current public IP of the target DNS record
 CUR_IP=$(dig +short $TARGET_DOMAIN )
 #echo $CUR_IP
 
 
 #========= TO FIND A DNS RECORD ID
-
-echo "$(date) : DNZ_RECORD_ID finder  |  " >> /tmp/cloudflare-ddns-log.log
 #echo $DNS_ZONE
 
 curl "https://api.cloudflare.com/client/v4/zones/$DNS_ZONE/dns_records?type=A&name=$TARGET_DOMAIN&content=$CUR_IP&proxied=false&page=1&per_page=20&order=type&direction=desc&match=all" \
@@ -49,8 +48,8 @@ if($(jq '.success' temp-record-result -r) == true) then
 else	
 	echo "$(date) : DNZ_RECORD_ID finder  |  $(jq '.success' temp-record-result -r) \t $(jq '.error[0]' temp-record-result -r) \t $(jq '.messages[0]' temp-record-result -r)" >> /tmp/cloudflare-ddns-log.log
 
-
 fi
+
 
 # Install `dig` via `dnsutils` for faster IP lookup.
 command -v dig &> /dev/null && {
@@ -79,3 +78,6 @@ curl "https://api.cloudflare.com/client/v4/zones/$DNS_ZONE/dns_records/$RECORD_I
      -d "$_UPDATE" | jq '.' > temp-record-result
 
 echo "$(date) : DNZ_RECORD UPDATE  |  $(jq '.' temp-record-result -r)" >> /tmp/cloudflare-ddns-log.log
+
+
+rm temp-record-result
