@@ -2,7 +2,10 @@
  
 Test
 
-
+## How to Download the shell file
+```
+curl -LJO https://raw.githubusercontent.com/kornadian/clouldflare-ddns-linux/main/cloudflare-ddns-from-linux.sh
+```
 
 ## PRE-QUALIFICATION
  You have to install these packages : \n
