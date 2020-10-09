@@ -85,5 +85,5 @@ if($CUR_IP != $_IP)then
 
 	rm temp-record-result
 else
-echo "$(date)  Current IP : $CUR_IP     =    My Public IP :  $_IP" > /tmp/cloudflare-ddns-log.log
+echo "$(date)  Current IP : $CUR_IP     =    My Public IP :  $_IP" >> /tmp/cloudflare-ddns-log.log
 fi
