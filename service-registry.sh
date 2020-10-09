@@ -1,7 +1,7 @@
 
 SERVICE_NAME=cloudflare-ddns-agent
 
-sudo mv cloudflare-ddns-from-linux.sh /usr/bin/$SERVICE_NAME.sh
+sudo cp cloudflare-ddns-from-linux.sh /usr/bin/$SERVICE_NAME.sh
 sudo chmod +x /usr/bin/$SERVICE_NAME.sh
 
 
@@ -16,7 +16,7 @@ Type=simple
 ExecStart=/bin/bash /usr/bin/$SERVICE_NAME.sh
 
 [Install]
-WantedBy=multi-user.target
+Wants=$SERVICE_NAME-timer.timer
 
 EOF
 
